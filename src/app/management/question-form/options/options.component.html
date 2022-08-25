@@ -1,0 +1,21 @@
+<h3>Options list</h3>
+<form #form="ngForm" (ngSubmit)="add()" [formGroup]="formCreate">
+  <mat-form-field appearance="outline">
+    <mat-label>Type Option</mat-label>
+    <input matInput placeholder="Type Option" formControlName="text">
+  </mat-form-field>
+  <div class="form-button">
+    <button mat-raised-button color="primary" [disabled]="form.invalid">Add</button>
+  </div>
+</form>
+
+<div class="option-list" *ngIf="options">
+  <div class="option-item" *ngFor="let item of options">
+    <span>{{item.text}}</span>
+    <div class="option-item__actions">
+      <button mat-icon-button color="warn" type="button" (click)="remove(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

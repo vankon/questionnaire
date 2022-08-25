@@ -2,9 +2,29 @@
   <mat-card-title>{{model.question.text}}</mat-card-title>
   <mat-card-subtitle>{{model.question.type}}</mat-card-subtitle>
   <mat-card-content>
-    {{model.question.options | json}}
+    <mat-radio-group *ngIf="model.question.type === 0" color="primary">
+      <mat-radio-button [value]="option.id" *ngFor="let option of model.question.options"
+        [disabled]="true"
+        [checked]="checkSelected(option.id)">
+        {{option.text}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-selection-list *ngIf="model.question.type === 1" multiple>
+      <mat-list-option checkboxPosition="before" [value]="option.id" *ngFor="let option of model.question.options"
+        [disabled]="true"
+        [selected]="checkSelected(option.id)">
+        {{option.text}}
+      </mat-list-option>
+    </mat-selection-list>
+
+    <mat-form-field *ngIf="model.question.type === 2" appearance="outline">
+      <mat-label>Your Answer</mat-label>
+      <textarea matInput [disabled]="true" [value]="model.response.text"></textarea>
+    </mat-form-field>
+
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>Rollback</button>
+    <button mat-button (click)="rollback()">Rollback</button>
   </mat-card-actions>
 </mat-card>

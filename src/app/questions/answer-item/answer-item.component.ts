@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Answer } from 'src/app/_models';
+import { QaNotificationService, QaService } from 'src/app/_services';
 
 @Component({
   selector: 'qa-answer-item',
@@ -8,16 +9,22 @@ import { Answer } from 'src/app/_models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class AnswerItemComponent implements OnInit {
+export class AnswerItemComponent {
   @Input() public model = <Answer>{};
 
   constructor(
+    private qaService: QaService,
+    private notificationService: QaNotificationService
   ) {
 
   }
 
-  public ngOnInit(): void {
-
+  public checkSelected(id: number): boolean {
+    return this.model.response?.optionIds?.some(x => x === id) || false;
   }
 
+  public rollback(): void {
+    this.qaService.rollbackAnswer(this.model).subscribe(data =>
+      this.notificationService.successSnackBar(`answer on question#${this.model.question.id} rolled back`));
+  }
 }

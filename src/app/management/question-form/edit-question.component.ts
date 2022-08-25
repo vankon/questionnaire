@@ -15,7 +15,7 @@ import { QuestionFormComponent } from './question-form.component';
 export class EditQuestionComponent extends QuestionFormComponent implements OnInit {
   public override formName = 'Edit Question';
   public override formButtonText = 'Save';
-  public model: Question;
+  public override model: Question;
 
   constructor(
     public override fb: FormBuilder,
@@ -47,23 +47,23 @@ export class EditQuestionComponent extends QuestionFormComponent implements OnIn
       return;
     }
 
-    /*  this.qaService.editDish(this.dishForm.value,
-       this.model).pipe(
-         finalize(() => this.loading$.next(false))
-       ).subscribe(() => {
-         this.router.navigate(['../../'], { relativeTo: this.route });
-       }, (error: HttpErrorResponse) => {
-         this.notificationService.failedToaster(error.message);
-       }); */
+    this.qaService.editQuestion({
+      ...this.questionForm.value,
+      id: this.model.id,
+      createDate: this.model.createDate,
+      answered: this.model.answered
+    }).subscribe(() => {
+      this.router.navigate(['../../'], { relativeTo: this.route });
+    });
   }
 
   private getQuestion(id: number) {
-  /*   this.qaService.geQuestionById(id).subscribe(data => {
+    this.qaService.getQuestionById(id).subscribe(data => {
       this.initFormShown = true;
       this.model = data;
       this.questionForm.patchValue({ ...this.model });
       this.cdRef.detectChanges();
-    }); */
+    });
   }
 
 }

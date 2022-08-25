@@ -38,12 +38,9 @@ export class CreateQuestionComponent extends QuestionFormComponent {
       return;
     }
 
-    /*   this.foodMenuService.addDish(restaurantId, this.dishForm.value).pipe(
-        finalize(() => this.loading$.next(false))
-      ).subscribe(() => {
-        this.router.navigate(['../'], { relativeTo: this.route });
-      }, (error: HttpErrorResponse) => {
-        this.notificationService.failedToaster(error.message);
-      }); */
+    this.qaService.addQuestion({
+      ...this.questionForm.value
+    }).subscribe(data => this.router.navigate(['../'], { relativeTo: this.route })
+      .finally(() => this.notificationService.success(`Question #${data.id} added`)));
   }
 }

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
 import { Answer, Question } from 'src/app/_models';
 import { QaService } from 'src/app/_services';
 
@@ -20,7 +21,9 @@ export class QuestionsListComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.qaService.questions$.subscribe(data => this.questions = data);
+    this.qaService.questions$.pipe(
+      map(list => list.filter(x => !x.answered))
+    ).subscribe(data => this.questions = data);
     this.qaService.answers$.subscribe(data => this.answers = data);
   }
 

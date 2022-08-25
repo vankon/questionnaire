@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuestionType } from 'src/app/_models';
+import { distinctUntilChanged } from 'rxjs';
+import { Question, QuestionOption, QuestionType } from 'src/app/_models';
 import { QuestionTypeEnum } from 'src/app/_models/enums';
 import { QaNotificationService, QaService } from 'src/app/_services';
 
 @Component({
   selector: 'question-form',
   templateUrl: './question-form.component.html',
-  styleUrls: ['./question-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./question-form.component.scss']
 })
 
 export class QuestionFormComponent implements OnInit {
@@ -17,6 +17,7 @@ export class QuestionFormComponent implements OnInit {
   public formButtonText = 'Save';
   public questionForm: FormGroup;
   public types: QuestionType[] = [];
+  public model: Question;
 
   public initFormShown = true;
 
@@ -33,6 +34,19 @@ export class QuestionFormComponent implements OnInit {
   public ngOnInit(): void {
     this.types = this.qaService.getTypes();
     this.formInit();
+
+    this.typeCntrl.valueChanges.pipe(
+      distinctUntilChanged()
+    ).subscribe(value => {
+      if (value !== QuestionTypeEnum.Open) {
+        this.optionsCntrl.setValidators([Validators.required])
+      }
+      else {
+        this.optionsCntrl.removeValidators(Validators.required);
+      }
+
+      this.optionsCntrl.updateValueAndValidity();
+    });
   }
 
   public send(): boolean {
@@ -44,17 +58,28 @@ export class QuestionFormComponent implements OnInit {
     return true;
   }
 
-  public selectItem(type: QuestionTypeEnum): void {
-    const selected = this.types.find(x => x.value === type) as QuestionType;
+  public opionsChanged(options: QuestionOption[]): void {
+    this.optionsCntrl.setValue(options);
+  }
 
-    this.notificationService.successSnackBar(selected.name);
+  get optionsEnable(): boolean {
+    const type = this.typeCntrl;
+    return type.value !== QuestionTypeEnum.Open;
+  }
+
+  get typeCntrl(): FormControl {
+    return this.questionForm.controls['type'] as FormControl;
+  }
+
+  get optionsCntrl(): FormControl {
+    return this.questionForm.controls['options'] as FormControl;
   }
 
   private formInit() {
     this.questionForm = this.fb.group({
       text: [null, Validators.required],
-      type: [null, Validators.required],
-      options: [null]
+      type: [QuestionTypeEnum.Single, Validators.required],
+      options: [null, Validators.required]
     });
   }
 

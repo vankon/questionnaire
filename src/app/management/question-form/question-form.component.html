@@ -11,21 +11,22 @@
   <form [formGroup]="questionForm" (ngSubmit)="send()" autocomplete="off">
     <mat-form-field appearance="outline">
       <mat-label>Text</mat-label>
-      <input type="text" matInput placeholder="Введіть номер" formControlName="text" required>
-      <mat-error></mat-error>
+      <input type="text" matInput placeholder="Type Text" formControlName="text" required>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Select Type</mat-label>
-      <mat-select formControlName="type"
-        (selectionChange)="selectItem($event.value)">
+      <mat-select formControlName="type">
         <mat-option *ngFor="let item of types;" [value]="item.value">
           {{item.name}}
         </mat-option>
       </mat-select>
-      <mat-error></mat-error>
     </mat-form-field>
+
+    <qa-question-options *ngIf="optionsEnable" [options]="model?.options ?? []" (onChange)="opionsChanged($event)">
+    </qa-question-options>
+
     <div class="form-button">
-      <button mat-raised-button color="primary">{{formButtonText}}</button>
+      <button mat-raised-button color="primary" [disabled]="questionForm.invalid">{{formButtonText}}</button>
     </div>
   </form>
 </div>

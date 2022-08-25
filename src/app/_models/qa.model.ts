@@ -8,6 +8,7 @@ export interface QuestionOption {
 export interface Question {
   id: number;
   createDate: Date;
+  answered: boolean;
   text: string;
   type: QuestionTypeEnum;
   options: QuestionOption[];

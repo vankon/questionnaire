@@ -8,6 +8,7 @@ import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { CreateQuestionComponent } from './question-form/add-question.component';
 import { EditQuestionComponent } from './question-form/edit-question.component';
+import { QuestionOptionsComponent } from './question-form/options/options.component';
 import { QuestionFormComponent } from './question-form/question-form.component';
 import { ManagerQuestionListComponent } from './question-list/question-list.component';
 
@@ -17,7 +18,8 @@ import { ManagerQuestionListComponent } from './question-list/question-list.comp
     ManagerQuestionListComponent,
     QuestionFormComponent,
     CreateQuestionComponent,
-    EditQuestionComponent
+    EditQuestionComponent,
+    QuestionOptionsComponent
   ],
   imports: [
     CommonModule,

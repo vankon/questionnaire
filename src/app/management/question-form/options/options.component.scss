@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+form {
+  margin-bottom: 2rem;
+}
+
+.option {
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem;
+    border: 1px dotted #999;
+    margin-bottom: .5rem;
+
+    span {
+      margin-right: 1rem;
+    }
+  }
+}

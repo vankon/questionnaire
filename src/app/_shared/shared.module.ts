@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { QaBreadcrumbsModule } from './components';
 import { MatTableModule } from '@angular/material/table';
 import { MomentModule } from 'ngx-moment';
+import { QaPipesModule } from './pipes/pipes.module';
 
 @NgModule({
   exports: [
@@ -34,7 +35,8 @@ import { MomentModule } from 'ngx-moment';
     MatTableModule,
     MomentModule,
 
-    QaBreadcrumbsModule
+    QaBreadcrumbsModule,
+    QaPipesModule
   ]
 })
 export class SharedModule { }
