@@ -1,0 +1,14 @@
+.page-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.mat-column-actions {
+  flex: 0 0 90px;
+}

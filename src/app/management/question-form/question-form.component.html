@@ -1,0 +1,31 @@
+<qa-breadcrumbs>
+  <span class="breadcrumbs-item">
+    <a routerLink="/management">Dashboard</a>
+  </span>
+  <span class="breadcrumbs-item">
+    <span>Questions</span>
+  </span>
+</qa-breadcrumbs>
+<div *ngIf="initFormShown" id="dishForm">
+  <h1 class="page-heading">{{ formName }}</h1>
+  <form [formGroup]="questionForm" (ngSubmit)="send()" autocomplete="off">
+    <mat-form-field appearance="outline">
+      <mat-label>Text</mat-label>
+      <input type="text" matInput placeholder="Введіть номер" formControlName="text" required>
+      <mat-error></mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Select Type</mat-label>
+      <mat-select formControlName="type"
+        (selectionChange)="selectItem($event.value)">
+        <mat-option *ngFor="let item of types;" [value]="item.value">
+          {{item.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error></mat-error>
+    </mat-form-field>
+    <div class="form-button">
+      <button mat-raised-button color="primary">{{formButtonText}}</button>
+    </div>
+  </form>
+</div>

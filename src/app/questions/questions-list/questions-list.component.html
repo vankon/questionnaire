@@ -1,0 +1,20 @@
+<div class="qa-grid">
+  <div class="qa-col">
+    <h2>Test Quiz</h2>
+    <div class="qa-list" *ngIf="questions.length > 0">
+      <qa-question-item *ngFor="let item of questions;" [model]="item"></qa-question-item>
+    </div>
+    <div *ngIf="!questions.length" class="empty-data">
+      No Items
+    </div>
+  </div>
+  <div class="qa-col">
+    <h2>Result</h2>
+    <div class="qa-list" *ngIf="answers.length > 0">
+      <qa-answer-item *ngFor="let item of answers;" [model]="item"></qa-answer-item>
+    </div>
+    <div *ngIf="!answers.length" class="empty-data">
+      No Items
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<mat-card class="qa-item" *ngIf="model">
+  <mat-card-title>{{model.question.text}}</mat-card-title>
+  <mat-card-subtitle>{{model.question.type}}</mat-card-subtitle>
+  <mat-card-content>
+    {{model.question.options | json}}
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Rollback</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,16 @@
+.qa {
+  &-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  &-list {
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+  }
+}
+
+h2 {
+  font-weight: 300;
+}

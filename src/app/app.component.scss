@@ -1,0 +1,29 @@
+mat-toolbar {
+  .container {
+    width: 100%;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .account {
+    font-size: .9rem;
+
+    a {
+      color: #fff;
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        margin-right: .5rem;
+      }
+    }
+  }
+}

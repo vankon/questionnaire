@@ -1,0 +1,41 @@
+//	Colors:
+$color-primary: #9a1eff;
+$container-width: 1280px;
+
+$breakpoints: (xs: 'screen and (max-width: 767px)',
+  sm: 'screen and (min-width: 768px) and (max-width: 991px)',
+  md: 'screen and (min-width: 992px) and (max-width: 1279px)',
+  lg: 'screen and (min-width: 1280px) and (max-width: 1919px)',
+  xl: 'screen and (min-width: 1920px) and (max-width: 2559px)',
+  lt-sm: 'screen and (max-width: 768px)',
+  lt-md: 'screen and (max-width: 992px)',
+  lt-lg: 'screen and (max-width: 1280px)',
+  lt-xl: 'screen and (max-width: 1920px)',
+  gt-xs: 'screen and (min-width: 769px)',
+  gt-sm: 'screen and (min-width: 993px)',
+  gt-md: 'screen and (min-width: 1281px)',
+  gt-lg: 'screen and (min-width: 1921px)'
+) !default;
+
+// Re-map the breakpoints for the helper classes
+$helper-breakpoints: (xs: null,
+  sm: 'gt-xs',
+  md: 'gt-sm',
+  lg: 'gt-md',
+  xl: 'gt-lg'
+);
+
+@mixin media-breakpoint($breakpointName) {
+
+  $mediaQuery: map-get($breakpoints, $breakpointName);
+
+  @if ($mediaQuery==null) {
+    @content
+  }
+
+  @else {
+    @media #{$mediaQuery} {
+      @content
+    }
+  }
+}
